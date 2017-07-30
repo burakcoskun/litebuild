@@ -1,5 +1,6 @@
 package com.burakcoskun.litebuild.cli;
 
+import com.burakcoskun.litebuild.ConfFileHandler;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
@@ -21,7 +22,15 @@ public class CreateProjectTest {
         assertTrue(projectFolder.exists());
         File[] projectFiles = projectFolder.listFiles();
         assertTrue(projectFiles.length > 0);
-//        assertTrue(containsConfFile(projectFiles,"liteBuild.Conf"));
         FileUtils.deleteDirectory(projectFolder);
+    }
+
+
+    @Test
+    public void isConfFileCreated() throws Exception {
+        new ConfFileHandler().createEmptyConfFile(".");
+        File file = new File("litebuild.settings");
+        assertTrue(file.exists());
+        file.delete();
     }
 }

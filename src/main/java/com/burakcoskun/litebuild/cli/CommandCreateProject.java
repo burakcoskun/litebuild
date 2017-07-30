@@ -29,12 +29,14 @@ public class CommandCreateProject extends AndroidSDKCommand {
     @Parameter(names = {"-d", "--dir"}, description = "Directory(Path) to create project. [required]", required = true)
     private String dir;
 
+    @Override
     public void run(JCommander jCommander) throws Exception {
         super.run(jCommander);
         new ProcessRunner().run(createActualCommand());
         new ConfFileHandler().createEmptyConfFile(dir);
     }
 
+    @Override
     protected String[] createActualCommand() {
         StringBuilder builder = new StringBuilder();
         builder.append(androidHome + "/tools/android create project");
