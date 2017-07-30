@@ -2,10 +2,11 @@ package com.burakcoskun.litebuild.cli;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by burakcoskun on 7/30/17.

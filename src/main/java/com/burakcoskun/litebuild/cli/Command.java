@@ -3,8 +3,6 @@ package com.burakcoskun.litebuild.cli;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 
-import java.io.FileNotFoundException;
-
 /**
  * Created by burakcoskun on 7/29/17.
  */

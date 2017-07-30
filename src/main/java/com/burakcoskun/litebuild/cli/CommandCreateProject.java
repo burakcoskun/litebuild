@@ -4,6 +4,7 @@ package com.burakcoskun.litebuild.cli;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import com.burakcoskun.litebuild.ConfFileHandler;
 import com.burakcoskun.litebuild.ProcessRunner;
 
 
@@ -25,12 +26,13 @@ public class CommandCreateProject extends AndroidSDKCommand{
     @Parameter(names = {"-a" , "--activity"}, description = "Name of the default Activity that is created.")
     private String activity="Main";
 
-    @Parameter(names = {"-d" , "--dir"}, description = "Directory to create project. [required]",required = true)
+    @Parameter(names = {"-d" , "--dir"}, description = "Directory(Path) to create project. [required]",required = true)
     private String dir;
 
     public void run(JCommander jCommander) throws Exception {
         super.run(jCommander);
         new ProcessRunner().run(createActualCommand());
+        new ConfFileHandler().createEmptyConfFile(dir);
     }
 
     protected String[] createActualCommand() {
