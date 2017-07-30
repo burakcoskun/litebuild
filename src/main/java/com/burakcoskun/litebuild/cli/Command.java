@@ -6,13 +6,13 @@ import com.beust.jcommander.Parameter;
 /**
  * Created by burakcoskun on 7/29/17.
  */
-public abstract class Command{
+public abstract class Command {
 
-    @Parameter(names = {"-h" , "--help"}, help = true)
+    @Parameter(names = {"-h", "--help"}, help = true)
     protected boolean help;
 
     public void run(JCommander jCommander) throws Exception {
-        if(help)
+        if (help)
             jCommander.usage();
     }
 

@@ -17,28 +17,27 @@ public class Main {
 
     }
 
-    public void runMainThenExit(String[] args){
+    public void runMainThenExit(String[] args) {
 
         commandCreateProcject = new CommandCreateProject();
         JCommander jcommander = JCommander.newBuilder()
                 .addObject(this)
-                .addCommand("project",commandCreateProcject)
+                .addCommand("project", commandCreateProcject)
                 .build();
 
         try {
             jcommander.parse(args);
-            if(help || jcommander.getParsedCommand() == null){
+            if (help || jcommander.getParsedCommand() == null) {
                 jcommander.usage();
                 return;
             }
 
-            if(jcommander.getParsedCommand().equals("project"))
+            if (jcommander.getParsedCommand().equals("project"))
                 commandCreateProcject.run(jcommander);
 
-        }catch(ParameterException e){
-            System.err.println("Command Error:" +e.getMessage());
-        }
-        catch (Exception e){
+        } catch (ParameterException e) {
+            System.err.println("Command Error:" + e.getMessage());
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }

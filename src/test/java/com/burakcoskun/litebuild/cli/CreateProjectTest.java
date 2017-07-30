@@ -15,7 +15,7 @@ public class CreateProjectTest {
 
     @Test
     public void isProjectCreatedWithoutAnError() throws IOException {
-        String[] args = {"project","-t","android-26","-p","com.mycompany.package","-a","MMM","-d","MyTestProject","-n","MyTestProject"};
+        String[] args = {"project", "-t", "android-26", "-p", "com.mycompany.package", "-a", "MMM", "-d", "MyTestProject", "-n", "MyTestProject"};
         Main.main(args);
         File projectFolder = new File("./MyTestProject");
         assertTrue(projectFolder.exists());

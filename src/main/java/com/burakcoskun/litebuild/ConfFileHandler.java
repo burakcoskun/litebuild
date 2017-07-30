@@ -13,12 +13,12 @@ import java.util.List;
  */
 public class ConfFileHandler {
 
-    private List<String> addBeforeAfter(String s){
+    private List<String> addBeforeAfter(String s) {
         List<String> res = new ArrayList<String>();
-        res.add(s+".before{");
+        res.add(s + ".before{");
         res.add("");
         res.add("}");
-        res.add(s+".after{");
+        res.add(s + ".after{");
         res.add("");
         res.add("}");
         return res;
@@ -29,15 +29,15 @@ public class ConfFileHandler {
         lines.addAll(addBeforeAfter("compile"));
         lines.addAll(addBeforeAfter("package"));
         lines.addAll(addBeforeAfter("launch"));
-        FileUtils.writeLines(file,lines);
+        FileUtils.writeLines(file, lines);
     }
 
     public void createEmptyConfFile(String path) throws Exception {
-        File file = new File(path+"/litebuild.settings");
-        if(!file.createNewFile())
+        File file = new File(path + "/litebuild.settings");
+        if (!file.createNewFile())
             throw new Exception("Conf File Could Not Created");
         printEmptySettings(file);
-        System.out.println("Added file "+file.getPath());
+        System.out.println("Added file " + file.getPath());
     }
 
 }
