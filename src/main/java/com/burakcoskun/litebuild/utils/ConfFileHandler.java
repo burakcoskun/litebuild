@@ -1,4 +1,4 @@
-package com.burakcoskun.litebuild;
+package com.burakcoskun.litebuild.utils;
 
 
 import org.apache.commons.io.FileUtils;
@@ -40,4 +40,8 @@ public class ConfFileHandler {
         System.out.println("Added file " + file.getPath());
     }
 
+    public boolean isExists(String path) {
+        File file = new File(path + "/litebuild.xml");
+        return file.exists();
+    }
 }

@@ -44,6 +44,8 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <finalName>litebuild</finalName>
                 </configuration>
                 <executions>
                     <execution>

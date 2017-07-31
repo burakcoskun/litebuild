@@ -1,6 +1,6 @@
 package com.burakcoskun.litebuild.cli;
 
-import com.burakcoskun.litebuild.ConfFileHandler;
+import com.burakcoskun.litebuild.utils.ConfFileHandler;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 

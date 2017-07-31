@@ -11,10 +11,13 @@ public abstract class Command {
     @Parameter(names = {"-h", "--help"}, help = true)
     protected boolean help;
 
-    public void run(JCommander jCommander) throws Exception {
-        if (help)
-            jCommander.usage();
-    }
+    public abstract int runWithoutHelp() throws Exception;
 
-    abstract String[] createActualCommand();
+    public int run(JCommander jCommander) throws Exception {
+        if(help) {
+            jCommander.usage();
+            return 0;
+        }
+        return runWithoutHelp();
+    }
 }

@@ -1,18 +1,17 @@
 package com.burakcoskun.litebuild.cli;
 
 
-import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.burakcoskun.litebuild.ConfFileHandler;
-import com.burakcoskun.litebuild.ProcessRunner;
+import com.burakcoskun.litebuild.utils.ConfFileHandler;
+import com.burakcoskun.litebuild.runnablecommands.AndroidSDKCommand;
 
 
 /**
  * Created by burakcoskun on 7/28/17.
  */
 @Parameters(separators = "=", commandDescription = "Creates new android project with it's most basic form")
-public class CommandCreateProject extends AndroidSDKCommand {
+public class CommandCreateProject extends Command {
 
     @Parameter(names = {"-t", "--target"}, description = "Target ID of the new project. [required]", required = true)
     private String target;
@@ -30,22 +29,21 @@ public class CommandCreateProject extends AndroidSDKCommand {
     private String dir;
 
     @Override
-    public void run(JCommander jCommander) throws Exception {
-        super.run(jCommander);
-        new ProcessRunner().run(createActualCommand());
+    public int runWithoutHelp() throws Exception {
+        new AndroidSDKCommand(createActualCommand()).run();
         new ConfFileHandler().createEmptyConfFile(dir);
+        return 0;
     }
 
-    @Override
-    protected String[] createActualCommand() {
+    protected String createActualCommand() {
         StringBuilder builder = new StringBuilder();
-        builder.append(androidHome + "/tools/android create project");
+        builder.append("/tools/android create project");
         builder.append(" -a " + activity);
         builder.append(" --path " + dir);
         if (name != null)
             builder.append(" -n " + name);
         builder.append(" -t " + target);
         builder.append(" --package " + packageName);
-        return builder.toString().split(" ");
+        return builder.toString();
     }
 }

@@ -1,4 +1,4 @@
-package com.burakcoskun.litebuild;
+package com.burakcoskun.litebuild.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
