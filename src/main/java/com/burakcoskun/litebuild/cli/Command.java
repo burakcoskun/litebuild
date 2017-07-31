@@ -14,10 +14,11 @@ public abstract class Command {
     public abstract int runWithoutHelp() throws Exception;
 
     public int run(JCommander jCommander) throws Exception {
-        if(help) {
+        if (help) {
             jCommander.usage();
             return 0;
         }
         return runWithoutHelp();
     }
+
 }

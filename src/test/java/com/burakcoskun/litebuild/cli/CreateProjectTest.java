@@ -28,7 +28,7 @@ public class CreateProjectTest {
 
     @Test
     public void isConfFileCreated() throws Exception {
-        new ConfFileHandler().createEmptyConfFile(".");
+        new ConfFileHandler().createEmptyConfFile(".", "android-x");
         File file = new File("litebuild.settings");
         assertTrue(file.exists());
         file.delete();

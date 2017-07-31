@@ -3,8 +3,9 @@ package com.burakcoskun.litebuild.cli;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import com.burakcoskun.litebuild.runnablecommands.AndroidSDKCommandCreator;
 import com.burakcoskun.litebuild.utils.ConfFileHandler;
-import com.burakcoskun.litebuild.runnablecommands.AndroidSDKCommand;
+import com.burakcoskun.litebuild.utils.ProcessRunner;
 
 
 /**
@@ -30,20 +31,11 @@ public class CommandCreateProject extends Command {
 
     @Override
     public int runWithoutHelp() throws Exception {
-        new AndroidSDKCommand(createActualCommand()).run();
-        new ConfFileHandler().createEmptyConfFile(dir);
+        ProcessRunner processRunner = new ProcessRunner();
+        processRunner.run(new AndroidSDKCommandCreator()
+                .createProjectCommand(activity, dir, name, target, packageName));
+        new ConfFileHandler().createEmptyConfFile(dir, target);
         return 0;
     }
 
-    protected String createActualCommand() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("/tools/android create project");
-        builder.append(" -a " + activity);
-        builder.append(" --path " + dir);
-        if (name != null)
-            builder.append(" -n " + name);
-        builder.append(" -t " + target);
-        builder.append(" --package " + packageName);
-        return builder.toString();
-    }
 }

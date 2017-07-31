@@ -10,6 +10,7 @@ public class Main {
     private boolean help;
 
     private CommandCreateProject commandCreateProcject;
+    private CommandCompile commandCompile;
 
     public static void main(String[] args) {
 
@@ -20,9 +21,12 @@ public class Main {
     public void runMainThenExit(String[] args) {
 
         commandCreateProcject = new CommandCreateProject();
+        commandCompile = new CommandCompile();
+
         JCommander jcommander = JCommander.newBuilder()
                 .addObject(this)
                 .addCommand("project", commandCreateProcject)
+                .addCommand("compile", commandCompile)
                 .build();
 
         try {
@@ -33,7 +37,9 @@ public class Main {
             }
 
             if (jcommander.getParsedCommand().equals("project"))
-                commandCreateProcject.run(jcommander);
+                commandCreateProcject.run(jcommander.getCommands().get("project"));
+            else if (jcommander.getParsedCommand().equals("compile"))
+                commandCompile.run(jcommander.getCommands().get("compile"));
 
         } catch (ParameterException e) {
             System.err.println("Command Error:" + e.getMessage());
