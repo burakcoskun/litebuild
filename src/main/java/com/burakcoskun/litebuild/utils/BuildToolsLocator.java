@@ -1,7 +1,6 @@
 package com.burakcoskun.litebuild.utils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -12,11 +11,17 @@ import java.util.Comparator;
  */
 public class BuildToolsLocator {
 
-    public String getLatestAvailableBuildToolsVersion(String androidHome) throws FileNotFoundException {
+    public class BuildToolsNotFoundException extends RuntimeException {
+        BuildToolsNotFoundException(String message) {
+            super(message);
+        }
+    }
+
+    public String getLatestAvailableBuildToolsVersion(String androidHome) {
         File folder = new File(androidHome + "/build-tools");
         File[] listOfFiles = folder.listFiles();
         if (listOfFiles.length == 0)
-            throw new FileNotFoundException("Build Tools Not Found");
+            throw new BuildToolsNotFoundException("Build Tools Not Found");
         Arrays.sort(listOfFiles, new Comparator<File>() {
             public int compare(File o1, File o2) {
                 return o2.getName().compareTo(o1.getName());

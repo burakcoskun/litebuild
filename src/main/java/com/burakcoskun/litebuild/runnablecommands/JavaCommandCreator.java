@@ -12,18 +12,24 @@ public class JavaCommandCreator extends CommandCreator {
     private String javaHome;
     private ClassPathLocator classPathLocator;
 
-    public JavaCommandCreator() throws Exception {
+    public class JavaHomeIsNotDefinedException extends RuntimeException {
+        JavaHomeIsNotDefinedException(String message) {
+            super(message);
+        }
+    }
+
+    public JavaCommandCreator() {
         super();
 
         classPathLocator = new ClassPathLocator();
 
         javaHome = System.getenv().get("JAVA_HOME");
         if (javaHome == null)
-            throw new Exception("Environment variable JAVA_HOME is not set.");
+            throw new JavaHomeIsNotDefinedException("Environment variable JAVA_HOME is not set.");
 
     }
 
-    public String compileCommand() throws Exception {
+    public String compileCommand() {
         String target = confFileHandler.getTarget(".");
         StringBuilder builder = new StringBuilder();
         builder.append(javaHome + "/bin/javac");

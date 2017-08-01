@@ -13,6 +13,24 @@ import java.util.List;
  */
 public class ConfFileHandler {
 
+    public class SettingsFileNotCreatedException extends RuntimeException {
+        public SettingsFileNotCreatedException(String message) {
+            super(message);
+        }
+    }
+
+    public class SettingsFileNotFoundException extends RuntimeException {
+        public SettingsFileNotFoundException(String message) {
+            super(message);
+        }
+    }
+
+    public class AndroidTargetIsNotSpecifiedInSettingsException extends RuntimeException {
+        public AndroidTargetIsNotSpecifiedInSettingsException(String message) {
+            super(message);
+        }
+    }
+
     private List<String> addBeforeAfter(String s) {
         List<String> res = new ArrayList<String>();
         res.add(s + ".before{");
@@ -24,36 +42,53 @@ public class ConfFileHandler {
         return res;
     }
 
-    private void printEmptySettings(File file, String target) throws IOException {
+    private void printEmptySettings(File file, String target) {
         List<String> lines = new ArrayList<String>();
         lines.add("target=" + target);
         lines.addAll(addBeforeAfter("compile"));
         lines.addAll(addBeforeAfter("package"));
         lines.addAll(addBeforeAfter("launch"));
-        FileUtils.writeLines(file, lines);
+        try {
+            FileUtils.writeLines(file, lines);
+        } catch (IOException e) {
+            throw new SettingsFileNotCreatedException("Conf File Could Not Created");
+        }
     }
 
-    public void createEmptyConfFile(String path, String target) throws Exception {
+    public void createEmptyConfFile(String path, String target) {
         File file = new File(path + "/litebuild.settings");
-        if (!file.createNewFile())
-            throw new Exception("Conf File Could Not Created");
-        printEmptySettings(file, target);
+        try {
+            file.createNewFile();
+            printEmptySettings(file, target);
+        } catch (IOException e) {
+            throw new SettingsFileNotCreatedException("Conf File Could Not Created");
+        }
+
         System.out.println("Added file " + file.getPath());
     }
 
-    public File getFileIfExists(String path) throws Exception {
+    public File getFileIfExists(String path) {
         File file = new File(path + "/litebuild.settings");
         if (file.exists() == false)
-            throw new Exception("Could not find litebuild.settings file. This may not be a project's root folder");
+            throw new SettingsFileNotFoundException("Could not find litebuild.settings file. This may not be a project's root folder");
         return file;
     }
 
-    public String getTarget(String path) throws Exception {
+    public String getTarget(String path) {
+
         File file = getFileIfExists(path);
-        List<String> lines = FileUtils.readLines(file);
+        List<String> lines = null;
+
+        try {
+            lines = FileUtils.readLines(file);
+        } catch (IOException e) {
+            throw new AndroidTargetIsNotSpecifiedInSettingsException("Error reading target from litebuild.settings");
+        }
+
         for (int i = 0; i < lines.size(); ++i)
             if (lines.get(i).startsWith("target="))
                 return lines.get(i).split("=")[1];
-        throw new Exception("Android target is not specified in litebuild.settings");
+
+        throw new AndroidTargetIsNotSpecifiedInSettingsException("Android target is not specified in litebuild.settings");
     }
 }

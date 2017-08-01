@@ -7,11 +7,11 @@ import com.burakcoskun.litebuild.utils.BuildToolsLocator;
  */
 public class AndroidSDKCommandCreator extends CommandCreator {
 
-    public AndroidSDKCommandCreator() throws Exception {
+    public AndroidSDKCommandCreator() {
         super();
     }
 
-    public String createRJavaCommand() throws Exception {
+    public String createRJavaCommand() {
         String target = confFileHandler.getTarget(".");
         StringBuilder builder = new StringBuilder();
         builder.append(androidHome + "/build-tools");///aapt");
