@@ -9,16 +9,16 @@ import com.burakcoskun.litebuild.runnablecommands.AndroidSDKCommandCreator;
 @Parameters(separators = "=", commandDescription = "Compiles source files, but first creates R.java then compiles source files then creates dex file.")
 public class CommandCompile extends Command {
 
-    AndroidSDKCommandCreator commandCreator;
+    AndroidSDKCommandCreator androidSDKCommandCreator;
 
     public CommandCompile() throws Exception {
         super();
-        commandCreator = new AndroidSDKCommandCreator();
+        androidSDKCommandCreator = new AndroidSDKCommandCreator();
     }
 
     @Override
     public int runWithoutHelp() throws Exception {
-        processRunner.run(commandCreator.createRJavaCommand());
+        processRunner.run(androidSDKCommandCreator.createRJavaCommand());
         return 0;
     }
 

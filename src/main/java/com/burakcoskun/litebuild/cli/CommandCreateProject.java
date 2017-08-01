@@ -29,6 +29,10 @@ public class CommandCreateProject extends Command {
     @Parameter(names = {"-d", "--dir"}, description = "Directory(Path) to create project. [required]", required = true)
     private String dir;
 
+    public CommandCreateProject() {
+        super();
+    }
+
     @Override
     public int runWithoutHelp() throws Exception {
         ProcessRunner processRunner = new ProcessRunner();
