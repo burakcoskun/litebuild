@@ -14,16 +14,16 @@ public class Main {
 
     public void runMainThenExit(String[] args) {
 
-        commandCreateProcject = new CommandCreateProject();
-        commandCompile = new CommandCompile();
-
-        JCommander jcommander = JCommander.newBuilder()
-                .addObject(this)
-                .addCommand("project", commandCreateProcject)
-                .addCommand("compile", commandCompile)
-                .build();
-
         try {
+            commandCreateProcject = new CommandCreateProject();
+            commandCompile = new CommandCompile();
+
+            JCommander jcommander = JCommander.newBuilder()
+                    .addObject(this)
+                    .addCommand("project", commandCreateProcject)
+                    .addCommand("compile", commandCompile)
+                    .build();
+
             jcommander.parse(args);
             if (help || jcommander.getParsedCommand() == null) {
                 jcommander.usage();
