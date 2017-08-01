@@ -19,7 +19,7 @@ public class ProcessRunner {
             Process p = processBuilder.start();
             p.waitFor();
         } catch (Exception e) {
-            throw new CommandLineCommandCouldNotRunException("Command: " + cmd + "\n" + "Could not executed");
+            throw new CommandLineCommandCouldNotRunException("Command: " + cmd + "\n" + "Could not executed - error:" + e.getMessage());
         }
     }
 }

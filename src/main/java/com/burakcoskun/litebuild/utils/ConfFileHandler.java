@@ -51,7 +51,7 @@ public class ConfFileHandler {
         try {
             FileUtils.writeLines(file, lines);
         } catch (IOException e) {
-            throw new SettingsFileNotCreatedException("Conf File Could Not Created");
+            throw new SettingsFileNotCreatedException("Conf File Could Not Created - error:" + e.getMessage());
         }
     }
 
@@ -61,7 +61,7 @@ public class ConfFileHandler {
             file.createNewFile();
             printEmptySettings(file, target);
         } catch (IOException e) {
-            throw new SettingsFileNotCreatedException("Conf File Could Not Created");
+            throw new SettingsFileNotCreatedException("Conf File Could Not Created - error:" + e.getMessage());
         }
 
         System.out.println("Added file " + file.getPath());
@@ -82,7 +82,7 @@ public class ConfFileHandler {
         try {
             lines = FileUtils.readLines(file);
         } catch (IOException e) {
-            throw new AndroidTargetIsNotSpecifiedInSettingsException("Error reading target from litebuild.settings");
+            throw new AndroidTargetIsNotSpecifiedInSettingsException("Error reading target from litebuild.settings - error:" + e.getMessage());
         }
 
         for (int i = 0; i < lines.size(); ++i)
