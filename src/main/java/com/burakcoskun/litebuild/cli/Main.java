@@ -12,12 +12,6 @@ public class Main {
     private CommandCreateProject commandCreateProcject;
     private CommandCompile commandCompile;
 
-    public static void main(String[] args) {
-
-        new Main().runMainThenExit(args);
-
-    }
-
     public void runMainThenExit(String[] args) {
 
         commandCreateProcject = new CommandCreateProject();
@@ -46,5 +40,11 @@ public class Main {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+
+        new Main().runMainThenExit(args);
+
     }
 }
