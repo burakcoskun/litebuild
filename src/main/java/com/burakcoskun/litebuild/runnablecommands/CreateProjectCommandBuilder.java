@@ -1,6 +1,6 @@
 package com.burakcoskun.litebuild.runnablecommands;
 
-public class CreateProjectCommandBuilder extends AndroidSDKCommandCreator{
+public class CreateProjectCommandBuilder extends AndroidSDKCommandCreator {
 
     private String activity;
     private String dir;
@@ -8,7 +8,7 @@ public class CreateProjectCommandBuilder extends AndroidSDKCommandCreator{
     private String target;
     private String packageName;
 
-    public CreateProjectCommandBuilder(){
+    public CreateProjectCommandBuilder() {
         super();
     }
 

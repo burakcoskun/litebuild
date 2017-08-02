@@ -43,7 +43,7 @@ public class CommandCreateProject extends Command {
                 .setDir(dir)
                 .setTarget(target)
                 .setPackageName(packageName);
-        if(name != null)
+        if (name != null)
             createProjectCommandBuilder.setName(name);
 
         processRunner.run(createProjectCommandBuilder.build());

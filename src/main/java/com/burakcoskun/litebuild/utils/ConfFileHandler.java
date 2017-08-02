@@ -13,6 +13,8 @@ import java.util.List;
  */
 public class ConfFileHandler {
 
+    private String confFileName = "litebuild.settings";
+
     public class SettingsFileNotCreatedException extends RuntimeException {
         public SettingsFileNotCreatedException(String message) {
             super(message);
@@ -56,7 +58,7 @@ public class ConfFileHandler {
     }
 
     public void createEmptyConfFile(String path, String target) {
-        File file = new File(path + "/litebuild.settings");
+        File file = new File(path + "/" + confFileName);
         try {
             file.createNewFile();
             printEmptySettings(file, target);
@@ -68,9 +70,9 @@ public class ConfFileHandler {
     }
 
     public File getFileIfExists(String path) {
-        File file = new File(path + "/litebuild.settings");
+        File file = new File(path + "/" + confFileName);
         if (file.exists() == false)
-            throw new SettingsFileNotFoundException("Could not find litebuild.settings file. This may not be a project's root folder");
+            throw new SettingsFileNotFoundException("Could not find " + confFileName + " file. This may not be a project's root folder");
         return file;
     }
 
@@ -82,13 +84,14 @@ public class ConfFileHandler {
         try {
             lines = FileUtils.readLines(file);
         } catch (IOException e) {
-            throw new AndroidTargetIsNotSpecifiedInSettingsException("Error reading target from litebuild.settings - error:" + e.getMessage());
+            throw new AndroidTargetIsNotSpecifiedInSettingsException("Error reading target from " + confFileName + " - error:" + e.getMessage());
         }
 
         for (int i = 0; i < lines.size(); ++i)
             if (lines.get(i).startsWith("target="))
                 return lines.get(i).split("=")[1];
 
-        throw new AndroidTargetIsNotSpecifiedInSettingsException("Android target is not specified in litebuild.settings");
+        throw new AndroidTargetIsNotSpecifiedInSettingsException("Android target is not specified in " + confFileName);
     }
+
 }
