@@ -2,8 +2,10 @@ package com.burakcoskun.litebuild.cli;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import com.burakcoskun.litebuild.runnablecommands.AndroidSDKCommandCreator;
+import com.burakcoskun.litebuild.utils.ConfFileHandler;
 import com.burakcoskun.litebuild.utils.ProcessRunner;
+
+import java.util.List;
 
 /**
  * Created by burakcoskun on 7/29/17.
@@ -13,12 +15,12 @@ public abstract class Command {
     @Parameter(names = {"-h", "--help"}, help = true)
     protected boolean help;
 
+    protected String command;
+
     protected ProcessRunner processRunner;
-    protected AndroidSDKCommandCreator androidSDKCommandCreator;
 
     public Command() {
         processRunner = new ProcessRunner();
-        androidSDKCommandCreator = new AndroidSDKCommandCreator();
     }
 
     public abstract int runWithoutHelp();
@@ -31,4 +33,9 @@ public abstract class Command {
         return runWithoutHelp();
     }
 
+    protected void runBeforeAfterCommands(boolean isBefore) {
+        List<String> commands = new ConfFileHandler().getBeforeAfterCommands(command, ".", isBefore);
+        for (int i = 0; i < commands.size(); ++i)
+            processRunner.run(commands.get(i));
+    }
 }

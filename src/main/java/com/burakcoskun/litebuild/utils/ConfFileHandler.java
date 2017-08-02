@@ -88,10 +88,40 @@ public class ConfFileHandler {
         }
 
         for (int i = 0; i < lines.size(); ++i)
-            if (lines.get(i).startsWith("target="))
-                return lines.get(i).split("=")[1];
+            if (lines.get(i).trim().startsWith("target="))
+                return lines.get(i).trim().split("=")[1];
 
         throw new AndroidTargetIsNotSpecifiedInSettingsException("Android target is not specified in " + confFileName);
+    }
+
+    public List<String> getBeforeAfterCommands(String command, String path, boolean isBefore) {
+        File file = getFileIfExists(path);
+        List<String> lines = null;
+
+        try {
+            lines = FileUtils.readLines(file);
+        } catch (IOException e) {
+            throw new AndroidTargetIsNotSpecifiedInSettingsException("Error reading " + confFileName + " - error: " + e.getMessage());
+        }
+
+        String beforeOrAfter;
+        if (isBefore)
+            beforeOrAfter = "before";
+        else
+            beforeOrAfter = "after";
+
+
+        List<String> commands = new ArrayList<String>();
+        for (int i = 0; i < lines.size(); ++i) {
+            if (lines.get(i).trim().contains(command + "." + beforeOrAfter)) {
+                for (int j = i + 1; j < lines.size() && !lines.get(j).trim().contains("}"); ++j) {
+                    if (lines.get(j).trim().length() > 0)
+                        commands.add(lines.get(j).trim());
+                }
+            }
+        }
+
+        return commands;
     }
 
 }
