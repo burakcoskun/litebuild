@@ -26,15 +26,4 @@ public class AndroidSDKCommandCreator extends CommandCreator {
         return builder.toString();
     }
 
-    public String createProjectCommand(String activity, String dir, String name, String target, String packageName) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(androidHome + "/tools/android create project");
-        builder.append(" -a " + activity);
-        builder.append(" --path " + dir);
-        if (name != null)
-            builder.append(" -n " + name);
-        builder.append(" -t " + target);
-        builder.append(" --package " + packageName);
-        return builder.toString();
-    }
 }
