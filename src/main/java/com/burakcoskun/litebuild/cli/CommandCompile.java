@@ -3,6 +3,9 @@ package com.burakcoskun.litebuild.cli;
 import com.beust.jcommander.Parameters;
 import com.burakcoskun.litebuild.commandbuilders.AndroidSDKCommandBuilder;
 import com.burakcoskun.litebuild.commandbuilders.JavaCommandBuilder;
+import com.burakcoskun.litebuild.utils.PackageFinder;
+
+import java.util.List;
 
 /**
  * Created by burakcoskun on 7/30/17.
@@ -10,7 +13,7 @@ import com.burakcoskun.litebuild.commandbuilders.JavaCommandBuilder;
 @Parameters(separators = "=", commandDescription = "Compiles source files, but first creates R.java then compiles source files then creates dex file.")
 public class CommandCompile extends Command {
 
-    JavaCommandBuilder       javaCommandBuilder;
+    JavaCommandBuilder javaCommandBuilder;
     AndroidSDKCommandBuilder androidSDKCommandBuilder;
 
 
@@ -26,12 +29,20 @@ public class CommandCompile extends Command {
         runBeforeAfterCommands(true);
 
         javaCommandBuilder = new JavaCommandBuilder();
+
         processRunner.run(androidSDKCommandBuilder.createRJavaCommand());
-        System.out.println("MyCompileCommand:" + javaCommandBuilder.compileCommand());
+        runCompileCommandForEachPackage();
 
         runBeforeAfterCommands(false);
         return 0;
     }
 
+    private void runCompileCommandForEachPackage() {
+        List<String> packagePaths = new PackageFinder().findAllPackagePaths("src");
+        for (int i = 0; i < packagePaths.size(); ++i) {
+            processRunner.run(
+                    javaCommandBuilder.compileCommand(packagePaths.get(i)));
+        }
+    }
 
 }
