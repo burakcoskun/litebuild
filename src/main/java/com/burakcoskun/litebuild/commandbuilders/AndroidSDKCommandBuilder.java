@@ -12,10 +12,13 @@ public class AndroidSDKCommandBuilder extends CommandBuilder {
     }
 
     public String createRJavaCommand() {
+
         String target = confFileHandler.getTarget(".");
+
         StringBuilder builder = new StringBuilder();
-        builder.append(androidHome + "/build-tools");///aapt");
-        builder.append("/" + new BuildToolsLocator().getLatestAvailableBuildToolsVersion(androidHome));
+        builder.append(androidHome);
+        builder.append("/build-tools/");
+        builder.append(new BuildToolsLocator().getLatestAvailableBuildToolsVersion(androidHome));
         builder.append("/aapt");
         builder.append(" package");
         builder.append(" -v -f -m");
@@ -23,6 +26,21 @@ public class AndroidSDKCommandBuilder extends CommandBuilder {
         builder.append(" -J ./src");
         builder.append(" -M ./AndroidManifest.xml");
         builder.append(" -I " + androidHome + "/platforms/" + target + "/android.jar");
+
+        return builder.toString();
+    }
+
+    public String createDexFileCommand() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(androidHome);
+        builder.append("/build-tools/");
+        builder.append(new BuildToolsLocator().getLatestAvailableBuildToolsVersion(androidHome));
+        builder.append("/dx");
+        builder.append(" --dex");
+        builder.append(" --verbose");
+        builder.append(" --output=./bin/classes.dex");
+        builder.append(" obj");
+        builder.append(" libs");
         return builder.toString();
     }
 

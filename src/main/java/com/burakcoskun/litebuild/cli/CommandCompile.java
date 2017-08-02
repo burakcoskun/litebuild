@@ -5,6 +5,7 @@ import com.burakcoskun.litebuild.commandbuilders.AndroidSDKCommandBuilder;
 import com.burakcoskun.litebuild.commandbuilders.JavaCommandBuilder;
 import com.burakcoskun.litebuild.utils.PackageFinder;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -29,15 +30,18 @@ public class CommandCompile extends Command {
         runBeforeAfterCommands(true);
 
         javaCommandBuilder = new JavaCommandBuilder();
+        File file = new File("obj");
+        file.mkdir();
 
         processRunner.run(androidSDKCommandBuilder.createRJavaCommand());
-        runCompileCommandForEachPackage();
+        runCompileCommandForAllPackages();
+        processRunner.run(androidSDKCommandBuilder.createDexFileCommand());
 
         runBeforeAfterCommands(false);
         return 0;
     }
 
-    private void runCompileCommandForEachPackage() {
+    private void runCompileCommandForAllPackages() {
         List<String> packagePaths = new PackageFinder().findAllPackagePaths("src");
         for (int i = 0; i < packagePaths.size(); ++i) {
             processRunner.run(
