@@ -3,7 +3,7 @@ package com.burakcoskun.litebuild.cli;
 import com.beust.jcommander.Parameters;
 import com.burakcoskun.litebuild.commandbuilders.AndroidSDKCommandBuilder;
 import com.burakcoskun.litebuild.commandbuilders.JavaCommandBuilder;
-import com.burakcoskun.litebuild.utils.PackageFinder;
+import com.burakcoskun.litebuild.utils.SourceFilesFinder;
 
 import java.io.File;
 import java.util.List;
@@ -34,19 +34,12 @@ public class CommandCompile extends Command {
         file.mkdir();
 
         processRunner.run(androidSDKCommandBuilder.createRJavaCommand());
-        runCompileCommandForAllPackages();
+        processRunner.run(javaCommandBuilder.
+                compileCommand(new SourceFilesFinder().findAllPackagePaths("src")));
         processRunner.run(androidSDKCommandBuilder.createDexFileCommand());
 
         runBeforeAfterCommands(false);
         return 0;
-    }
-
-    private void runCompileCommandForAllPackages() {
-        List<String> packagePaths = new PackageFinder().findAllPackagePaths("src");
-        for (int i = 0; i < packagePaths.size(); ++i) {
-            processRunner.run(
-                    javaCommandBuilder.compileCommand(packagePaths.get(i)));
-        }
     }
 
 }
