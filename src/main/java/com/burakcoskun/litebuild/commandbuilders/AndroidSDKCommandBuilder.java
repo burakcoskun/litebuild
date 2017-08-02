@@ -1,13 +1,13 @@
-package com.burakcoskun.litebuild.runnablecommands;
+package com.burakcoskun.litebuild.commandbuilders;
 
 import com.burakcoskun.litebuild.utils.BuildToolsLocator;
 
 /**
  * Created by burakcoskun on 7/31/17.
  */
-public class AndroidSDKCommandCreator extends CommandCreator {
+public class AndroidSDKCommandBuilder extends CommandBuilder {
 
-    public AndroidSDKCommandCreator() {
+    public AndroidSDKCommandBuilder() {
         super();
     }
 

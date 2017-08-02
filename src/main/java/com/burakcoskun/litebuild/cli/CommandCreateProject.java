@@ -3,7 +3,7 @@ package com.burakcoskun.litebuild.cli;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.burakcoskun.litebuild.runnablecommands.CreateProjectCommandBuilder;
+import com.burakcoskun.litebuild.commandbuilders.CreateProjectCommandBuilder;
 import com.burakcoskun.litebuild.utils.ConfFileHandler;
 import com.burakcoskun.litebuild.utils.ProcessRunner;
 

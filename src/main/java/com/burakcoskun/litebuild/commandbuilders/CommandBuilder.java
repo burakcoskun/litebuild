@@ -1,8 +1,8 @@
-package com.burakcoskun.litebuild.runnablecommands;
+package com.burakcoskun.litebuild.commandbuilders;
 
 import com.burakcoskun.litebuild.utils.ConfFileHandler;
 
-public abstract class CommandCreator {
+public abstract class CommandBuilder {
 
     protected ConfFileHandler confFileHandler;
     protected String androidHome;
@@ -13,7 +13,7 @@ public abstract class CommandCreator {
         }
     }
 
-    public CommandCreator() {
+    public CommandBuilder() {
 
         confFileHandler = new ConfFileHandler();
 

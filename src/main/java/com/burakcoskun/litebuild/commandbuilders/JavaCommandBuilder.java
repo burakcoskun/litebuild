@@ -1,4 +1,4 @@
-package com.burakcoskun.litebuild.runnablecommands;
+package com.burakcoskun.litebuild.commandbuilders;
 
 import com.burakcoskun.litebuild.utils.ClassPathLocator;
 
@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by burakcoskun on 7/31/17.
  */
-public class JavaCommandCreator extends CommandCreator {
+public class JavaCommandBuilder extends CommandBuilder {
 
     private String javaHome;
     private ClassPathLocator classPathLocator;
@@ -18,7 +18,7 @@ public class JavaCommandCreator extends CommandCreator {
         }
     }
 
-    public JavaCommandCreator() {
+    public JavaCommandBuilder() {
         super();
 
         classPathLocator = new ClassPathLocator();
