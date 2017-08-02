@@ -1,9 +1,7 @@
 package com.burakcoskun.litebuild.commandbuilders;
 
 import com.burakcoskun.litebuild.utils.ClassPathLocator;
-import com.burakcoskun.litebuild.utils.SourceFilesFinder;
 
-import java.io.File;
 import java.util.List;
 
 /**

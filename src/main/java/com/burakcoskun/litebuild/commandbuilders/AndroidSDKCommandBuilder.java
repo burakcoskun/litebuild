@@ -7,8 +7,11 @@ import com.burakcoskun.litebuild.utils.BuildToolsLocator;
  */
 public class AndroidSDKCommandBuilder extends CommandBuilder {
 
+    private BuildToolsLocator buildToolsLocator;
+
     public AndroidSDKCommandBuilder() {
         super();
+        buildToolsLocator = new BuildToolsLocator();
     }
 
     public String createRJavaCommand() {
@@ -18,7 +21,7 @@ public class AndroidSDKCommandBuilder extends CommandBuilder {
         StringBuilder builder = new StringBuilder();
         builder.append(androidHome);
         builder.append("/build-tools/");
-        builder.append(new BuildToolsLocator().getLatestAvailableBuildToolsVersion(androidHome));
+        builder.append(buildToolsLocator.getLatestAvailableBuildToolsVersion(androidHome));
         builder.append("/aapt");
         builder.append(" package");
         builder.append(" -v -f -m");
@@ -34,13 +37,29 @@ public class AndroidSDKCommandBuilder extends CommandBuilder {
         StringBuilder builder = new StringBuilder();
         builder.append(androidHome);
         builder.append("/build-tools/");
-        builder.append(new BuildToolsLocator().getLatestAvailableBuildToolsVersion(androidHome));
+        builder.append(buildToolsLocator.getLatestAvailableBuildToolsVersion(androidHome));
         builder.append("/dx");
         builder.append(" --dex");
         builder.append(" --verbose");
         builder.append(" --output=./bin/classes.dex");
         builder.append(" obj");
         builder.append(" libs");
+        return builder.toString();
+    }
+
+    public String packageCommand() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(androidHome);
+        builder.append("/build-tools/");
+        builder.append(buildToolsLocator.getLatestAvailableBuildToolsVersion(androidHome));
+        builder.append("/aapt");
+        builder.append(" package");
+        builder.append(" -v -f");
+        builder.append(" -M AndroidManifest.xml");
+        builder.append(" -S res");
+        builder.append(" -I " + androidHome + "/platforms/" + confFileHandler.getTarget(".") + "/android.jar");
+        builder.append(" -F bin/AndroidTest.unsigned.apk");
+        builder.append(" bin");
         return builder.toString();
     }
 
