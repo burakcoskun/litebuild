@@ -4,6 +4,7 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.burakcoskun.litebuild.commandbuilders.AndroidSDKCommandBuilder;
 import com.burakcoskun.litebuild.commandbuilders.JavaCommandBuilder;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 
@@ -23,14 +24,12 @@ public class CommandPackage extends Command {
         javaCommandBuilder = new JavaCommandBuilder();
     }
 
-    @Parameter(names = {"-v","--validity"}, description = "Validity of debug key in days.")
-    private String validity;
-
     @Override
     public int runWithoutHelp() {
 
         runBeforeAfterCommands(true);
 
+        removePreviousPackages();
         processRunner.run(androidSDKCommandBuilder.packageCommand());
         processRunner.run(javaCommandBuilder.signCommand());
         processRunner.run(javaCommandBuilder.zipAlignApk());
@@ -38,6 +37,15 @@ public class CommandPackage extends Command {
         runBeforeAfterCommands(false);
 
         return 0;
+    }
+
+    private void removePreviousPackages(){
+        File unsigned = new File("bin/AndroidTest.unsigned.apk");
+        File signed   = new File("bin/AndroidTest.signed.apk");
+        File last     = new File("bin/AndroidTest.apk");
+        unsigned.delete();
+        signed.delete();
+        last.delete();
     }
 
 }

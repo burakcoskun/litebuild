@@ -63,4 +63,11 @@ public class AndroidSDKCommandBuilder extends CommandBuilder {
         return builder.toString();
     }
 
+    public String launchCommand() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(androidHome+"/platform-tools/adb");
+        builder.append(" -e");
+        builder.append(" install bin/AndroidTest.apk");
+        return builder.toString();
+    }
 }
