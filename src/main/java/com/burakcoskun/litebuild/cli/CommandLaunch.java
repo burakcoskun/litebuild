@@ -7,11 +7,11 @@ import com.burakcoskun.litebuild.commandbuilders.AndroidSDKCommandBuilder;
  * Created by burakcoskun on 8/3/17.
  */
 @Parameters(separators = "=", commandDescription = "Launches apk on running emulator.")
-public class CommandLaunch extends Command{
+public class CommandLaunch extends Command {
 
     AndroidSDKCommandBuilder androidSDKCommandBuilder;
 
-    public CommandLaunch(){
+    public CommandLaunch() {
         super();
         androidSDKCommandBuilder = new AndroidSDKCommandBuilder();
     }

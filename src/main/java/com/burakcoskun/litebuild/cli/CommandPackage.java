@@ -1,10 +1,8 @@
 package com.burakcoskun.litebuild.cli;
 
-import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.burakcoskun.litebuild.commandbuilders.AndroidSDKCommandBuilder;
 import com.burakcoskun.litebuild.commandbuilders.JavaCommandBuilder;
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 
@@ -39,10 +37,10 @@ public class CommandPackage extends Command {
         return 0;
     }
 
-    private void removePreviousPackages(){
+    private void removePreviousPackages() {
         File unsigned = new File("bin/AndroidTest.unsigned.apk");
-        File signed   = new File("bin/AndroidTest.signed.apk");
-        File last     = new File("bin/AndroidTest.apk");
+        File signed = new File("bin/AndroidTest.signed.apk");
+        File last = new File("bin/AndroidTest.apk");
         unsigned.delete();
         signed.delete();
         last.delete();

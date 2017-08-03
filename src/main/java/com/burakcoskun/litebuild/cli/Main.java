@@ -11,21 +11,21 @@ public class Main {
     private CommandCreateProject commandCreateProcject;
     private CommandCompile commandCompile;
     private CommandPackage commandPackage;
-    private CommandLaunch  commandLaunch;
+    private CommandLaunch commandLaunch;
 
     public void runMainThenExit(String[] args) {
 
         commandCreateProcject = new CommandCreateProject();
         commandCompile = new CommandCompile();
         commandPackage = new CommandPackage();
-        commandLaunch  = new CommandLaunch();
+        commandLaunch = new CommandLaunch();
 
         JCommander jcommander = JCommander.newBuilder()
                 .addObject(this)
                 .addCommand("project", commandCreateProcject)
                 .addCommand("compile", commandCompile)
                 .addCommand("package", commandPackage)
-                .addCommand("launch",commandLaunch)
+                .addCommand("launch", commandLaunch)
                 .build();
 
         jcommander.parse(args);
@@ -40,7 +40,7 @@ public class Main {
             commandCompile.run(jcommander.getCommands().get("compile"));
         else if (jcommander.getParsedCommand().equals("package"))
             commandPackage.run(jcommander.getCommands().get("package"));
-        else if(jcommander.getParsedCommand().equals("launch"))
+        else if (jcommander.getParsedCommand().equals("launch"))
             commandLaunch.run(jcommander.getCommands().get("launch"));
 
     }

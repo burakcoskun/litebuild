@@ -55,9 +55,9 @@ public class JavaCommandBuilder extends CommandBuilder {
 
     public String signCommand() {
         StringBuilder builder = new StringBuilder();
-        builder.append(javaHome+"/bin/jarsigner");
+        builder.append(javaHome + "/bin/jarsigner");
         builder.append(" -verbose");
-        builder.append(" -keystore "+System.getProperty("user.home")+"/.android/debug.keystore");
+        builder.append(" -keystore " + System.getProperty("user.home") + "/.android/debug.keystore");
         builder.append(" -storepass android");
         builder.append(" -keypass android");
         builder.append(" -signedjar bin/AndroidTest.signed.apk");
@@ -66,10 +66,10 @@ public class JavaCommandBuilder extends CommandBuilder {
         return builder.toString();
     }
 
-    public String zipAlignApk(){
+    public String zipAlignApk() {
         StringBuilder builder = new StringBuilder();
 
-        builder.append(androidHome+"/build-tools/"+new BuildToolsLocator().getLatestAvailableBuildToolsVersion(androidHome));
+        builder.append(androidHome + "/build-tools/" + new BuildToolsLocator().getLatestAvailableBuildToolsVersion(androidHome));
         builder.append("/zipalign");
         builder.append(" -v");
         builder.append(" -f");
