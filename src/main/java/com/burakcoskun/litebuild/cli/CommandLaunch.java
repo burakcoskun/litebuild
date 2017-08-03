@@ -14,12 +14,17 @@ public class CommandLaunch extends Command {
     public CommandLaunch() {
         super();
         androidSDKCommandBuilder = new AndroidSDKCommandBuilder();
+        command = "launch";
     }
 
     @Override
     public int runWithoutHelp() {
 
+        runBeforeAfterCommands(true);
+
         processRunner.run(androidSDKCommandBuilder.launchCommand());
+
+        runBeforeAfterCommands(false);
 
         return 0;
     }
