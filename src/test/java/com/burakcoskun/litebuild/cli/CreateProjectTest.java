@@ -27,10 +27,19 @@ public class CreateProjectTest {
 
 
     @Test
-    public void isConfFileCreated() throws Exception {
+    public void isConfFileCreated() {
         new ConfFileHandler().createEmptyConfFile(".", "android-x");
         File file = new File("litebuild.settings");
         assertTrue(file.exists());
+        file.delete();
+    }
+
+    @Test(expected = ConfFileHandler.SettingsFileNotCreatedException.class)
+    public void couldNotCreateProjectAl() {
+        new ConfFileHandler().createEmptyConfFile("./MyTestProject", "android-x");
+        File file = new File("litebuild.settings");
+        String[] args = {"project", "-t", "android-26", "-p", "com.mycompany.package", "-a", "MMM", "-d", "MyTestProject", "-n", "MyTestProject"};
+        Main.main(args);
         file.delete();
     }
 }
