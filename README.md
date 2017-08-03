@@ -3,7 +3,7 @@
 This is a very lightweight build system for Android.
 
 # NOTE:
-	   This application uses Android sdk tools and in latest version(26) of the Android sdk
+	   This application uses Android sdk tools and in the latest version(26) of the Android sdk
 	   path/to/sdk/tools/android is deprecated and this app rely on this sdk tool.
 	   So this app can't work with the newest version of Android sdk and you should use
 	   Android Sdk Tools version 25 or older.
@@ -26,24 +26,35 @@ It can create,compile, package and launch Android apps.
 	for windows:https://dl-ssl.google.com/android/repository/tools_r25.0.3-windows.zip
 
 	replace downloaded folder with your_android_home/tools
+	you can also change version number(25.0.3) to whatever you like except 26.
 
 # Installation
 	git clone https://github.com/burakcoskun/litebuild.git
 	cd litebuild
 	mvn clean install -DskipTests
-	executable jar will be exported to litebuild/target/litebuild.jar
+	executable jar will be exported to target/litebuild.jar
 	run it from anywhere by specifying full path:
 	java -jar path_to_litebuild/target/litebuild.jar
 
 # Usage
 	Usage is really straightforward and you would understand when you run: java -jar litebuild.jar --help
-	Anyway I should add a few samples:
+	Anyway I should mention it beriefly:
 
 	There are four commands this app runs {project,compile,package,launch}
 	Arguments can be displayed like: java -jar project  --help . This would display usage of project command.
 
 	Commands:
-		Project: creates new Android project with it's most basic form
-		Compile: compiles Android project along with sources and resources
-		Package: packages Android project signs with debug key store and zipaligns it
-		Laucn  : install final apk to a running emulator
+		project: creates new Android project with it's most basic form
+			This command also creates a file named litebuild.settings which includes android target, you should not delete this line.
+			Litebuild.settings file also comes with sections command.before and command.after .
+			You can specify your own commands like this:
+			compile.before{
+				echo This command runs before the compile command
+			}
+			compile.after{
+				echo this command runs after the compile command
+			}
+			You can specify before and after for compile,package and launch commands
+		compile: compiles Android project along with sources and resources
+		package: packages Android project signs with debug key store and zipaligns it
+		launch  : install final apk to a running emulator
